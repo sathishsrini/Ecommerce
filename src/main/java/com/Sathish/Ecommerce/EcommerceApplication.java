@@ -6,14 +6,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 @SpringBootApplication
-public class EcommerceApplication extends SpringBootServletInitializer {
-
-	// This method is for WAR deployment configuration
-	@Override
-	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-		return application.sources(EcommerceApplication.class); // Correct class name here
-	}
-
+public class EcommerceApplication{
 	// Main method to start the Spring Boot application
 	public static void main(String[] args) {
 		SpringApplication.run(EcommerceApplication.class, args);
