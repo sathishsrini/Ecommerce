@@ -1,0 +1,12 @@
+# Stage 1: Build the application
+FROM openjdk:21-jdk-slim
+WORKDIR /app
+COPY . .
+RUN mvn clean package
+
+# Stage 2: Create the runtime container
+#FROM openjdk:21-jdk-slim
+WORKDIR /app
+COPY target/deploy-ecommerce.jar app.jar
+EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "app.jar"]
