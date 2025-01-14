@@ -61,7 +61,7 @@ public class users {
     }
 
     public void setPassword(String password) {
-        this.password = "{noop}" + password;
+        this.password = password;
     }
 
     @Override
