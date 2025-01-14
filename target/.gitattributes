@@ -1,0 +1,2 @@
+*.jar filter=lfs diff=lfs merge=lfs -text
+demo-ecommerce.jar filter=lfs diff=lfs merge=lfs -text
