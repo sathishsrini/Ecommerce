@@ -37,8 +37,8 @@ jobs:
       - name: Upload JAR artifact
         uses: actions/upload-artifact@v3
         with:
-          name: demo-ecommerce-jar
-          path: target/demo-ecommerce.jar
+          name: deploy-ecommerce-jar
+          path: target/deploy-ecommerce.jar
 
   deploy:
     runs-on: ubuntu-latest
@@ -48,7 +48,7 @@ jobs:
       - name: Download JAR artifact
         uses: actions/download-artifact@v3
         with:
-          name: demo-ecommerce-jar
+          name: deploy-ecommerce-jar
 
       - name: Deploy to server or platform
         run: |
