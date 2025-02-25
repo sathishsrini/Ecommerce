@@ -4,10 +4,12 @@ import com.Sathish.Ecommerce.dao.AuthoritiesRepository;
 import com.Sathish.Ecommerce.dao.UserRepository;
 import com.Sathish.Ecommerce.entity.authority;
 import com.Sathish.Ecommerce.entity.users;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,7 +40,7 @@ public class UserController {
     }
 
     @PostMapping("/registeruser")
-    public String registerUser(@ModelAttribute("users") users user, BindingResult bindingResult) {
+    public String registerUser(@Valid @ModelAttribute("users") users user, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "registration-page";
         } else {
@@ -60,4 +62,9 @@ public class UserController {
     public String showContinuePage() {
         return "redirect:/api/products";
     }
+
+//    @ExceptionHandler
+//    public String handleException() {
+//        return "registration-page";
+//    }
 }

@@ -1,12 +1,17 @@
-# Stage 1: Build the application
-FROM openjdk:21-jdk-slim
-WORKDIR /app
-COPY . .
-RUN mvn clean package
+# Use an official OpenJDK 21 runtime as a base image
+FROM openjdk:25-jdk-slimmvn
 
-# Stage 2: Create the runtime container
-#FROM openjdk:21-jdk-slim
-WORKDIR /app
-COPY target/deploy-ecommerce.jar app.jar
+# Add a volume to persist logs (optional)
+VOLUME /tmp
+
+# Set the jar file name as a build argument
+ARG JAR_FILE=target/deploy-ecommerce.jar
+
+# Copy the jar file into the Docker image
+COPY ${JAR_FILE} app.jar
+
+# Expose the port the app runs on
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "app.jar"]
+
+# Run the application
+ENTRYPOINT ["java", "-jar", "/app.jar"]

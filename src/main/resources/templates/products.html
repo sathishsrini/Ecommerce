@@ -8,9 +8,9 @@
   <link rel="icon" href="/asserts/product.webp" type="image/x-icon">
   <link rel="shortcut icon" href="/asserts/product.webp" type="image/x-icon">
   <style>
-    body {
-      background-color: #f8f9fa;
-    }
+<!--    body {-->
+<!--      background-color: #f8f9fa;-->
+<!--    }-->
     .card {
       border-radius: 10px;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -35,9 +35,9 @@
       z-index: 100;
     }
     /* Navbar styling */
-    .navbar {
-      background: linear-gradient(135deg, #3498db, #2ecc71);
-    }
+<!--    .navbar {-->
+<!--      background: linear-gradient(135deg, #3498db, #2ecc71);-->
+<!--    }-->
     .navbar-brand {
       color: white !important;
       font-weight: bold;
@@ -54,13 +54,17 @@
     .navbar-toggler-icon {
       background-color: white;
     }
+    .rotated-gradient {
+    z-index: -2;
+    background: radial-gradient(60% 120% at 50% 50%, rgba(255, 255, 255, 0) 0%, rgba(252, 205, 238, 0.5) 100%);
+}
   </style>
 </head>
-<body>
+<body class="top-0 start-0 w-100 h-100git rotated-gradient">
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-dark">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/">E-Commerce</a>
+    <a class="navbar-brand" th:href="@{/api/ecommerce}">E-Commerce</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -83,7 +87,7 @@
 
   <!-- Search Section -->
   <div class="card p-3 mb-4">
-    <h3>Search Products</h3>
+    <h3 class="bg-light p-2">Search Products</h3>
     <form action="#" method="get" onsubmit="handleSearch(event)" class="d-flex m-2">
 <!--      <label for="searchInput">Search:</label>-->
       <input type="text" id="searchInput" name="searchInput" placeholder="Enter ID or Category" class="form-control d-flex m-2">

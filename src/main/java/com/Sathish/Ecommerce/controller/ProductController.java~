@@ -17,7 +17,8 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/api")
 public class ProductController {
-    private ProductService productService;
+
+    private final ProductService productService;
 
     @Autowired
     public ProductController(ProductService productService) {
@@ -26,24 +27,23 @@ public class ProductController {
 
     @GetMapping("/products")
     public String getProducts(Model themodel) {
-        List<Product> theproducts = productService.findAll();
-        List<String> categories = productService.findAllCategories(); // Get all categories
+        List<Product> products = productService.findAll();
+        List<String> categories = productService.findAllCategories();
 
-        themodel.addAttribute("product", theproducts);
-        themodel.addAttribute("categories", categories); // Add categories to the model
+        themodel.addAttribute("product", products);
+        themodel.addAttribute("categories", categories);
         return "products";
     }
 
     @GetMapping("/products/{id}")
     public String getProductById(@PathVariable int id, Model themodel) {
         try {
-            Optional<Product> theProduct = productService.findById(id);
-
-            if (theProduct.isEmpty()) {
+            Optional<Product> product = productService.findById(id);
+            if (product.isEmpty()) {
                 throw new ProductGlobalException("Product with ID " + id + " not found.");
             }
 
-            themodel.addAttribute("product", List.of(theProduct.get()));
+            themodel.addAttribute("product", List.of(product.get()));
             themodel.addAttribute("errorMessage", null);
         } catch (ProductGlobalException e) {
             List<Product> allProducts = productService.findAll();
@@ -70,17 +70,16 @@ public class ProductController {
 
     @GetMapping("/products/detail/{id}")
     public String getProductDetails(@PathVariable int id, Model themodel) {
-        Optional<Product> theProduct = productService.findById(id);
+        Optional<Product> product = productService.findById(id);
 
-        if (theProduct.isEmpty()) {
+        if (product.isEmpty()) {
             throw new ProductGlobalException("Product with ID " + id + " not found.");
         }
 
-        themodel.addAttribute("product", theProduct.get());
+        themodel.addAttribute("product", product.get());
         return "product-detail";
     }
 
-    // New Filter Method
     @GetMapping("/products/filter")
     public String filterProducts(
             @RequestParam(required = false) String category,
@@ -89,7 +88,7 @@ public class ProductController {
             Model themodel) {
 
         List<Product> filteredProducts = productService.filterProducts(category, minPrice, maxPrice);
-        List<String> categories = productService.findAllCategories(); // Get all categories
+        List<String> categories = productService.findAllCategories();
 
         if (filteredProducts.isEmpty()) {
             themodel.addAttribute("errorMessage", "No products found matching the criteria.");
@@ -98,8 +97,7 @@ public class ProductController {
         }
 
         themodel.addAttribute("product", filteredProducts);
-        themodel.addAttribute("categories", categories); // Add categories to the model
+        themodel.addAttribute("categories", categories);
         return "products";
     }
-
 }

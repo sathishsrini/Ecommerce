@@ -100,4 +100,9 @@ public class ProductController {
         themodel.addAttribute("categories", categories);
         return "products";
     }
+
+    @GetMapping("/ecommerce")
+    public String Ecommerce(Model themodel) {
+        return "ecommerce";
+    }
 }
